@@ -1,0 +1,508 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Student Dropout & Success - Visualizations</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    :root {
+      --bg-beige: #f5efe4;
+      --bg-card: #fdf8f0;
+      --accent-blue: #2C5F8D;
+      --accent-blue-light: #d3e2f5;
+      --text-dark: #333333;
+      --border-soft: #d5c7b6;
+    }
+
+    * {
+      box-sizing: border-box;
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      font-family: Georgia, "Times New Roman", serif;
+      background-color: var(--bg-beige);
+      color: var(--text-dark);
+    }
+
+    header {
+      background: linear-gradient(135deg, var(--accent-blue), #1c3f63);
+      color: white;
+      padding: 2rem 1.5rem;
+    }
+
+    header h1 {
+      margin: 0 0 0.5rem;
+      font-size: 1.9rem;
+      line-height: 1.3;
+    }
+
+    header p {
+      margin: 0;
+      max-width: 900px;
+      opacity: 0.9;
+      font-size: 0.98rem;
+    }
+
+    /* Navigation bar */
+    nav.main-nav {
+      background-color: var(--accent-blue);
+      padding: 0;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+
+    nav.main-nav ul {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    nav.main-nav li {
+      margin: 0;
+    }
+
+    nav.main-nav a {
+      display: block;
+      padding: 1rem 1.5rem;
+      color: white;
+      text-decoration: none;
+      transition: background-color 0.3s;
+    }
+
+    nav.main-nav a:hover,
+    nav.main-nav a.active {
+      background-color: #1c3f63;
+    }
+
+    .layout {
+      display: grid;
+      grid-template-columns: minmax(220px, 270px) minmax(0, 1fr);
+      gap: 1.5rem;
+      padding: 1.5rem;
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+
+    /* Sidebar navigation */
+    .sidebar {
+      background-color: var(--bg-card);
+      border-radius: 10px;
+      padding: 1.2rem 1rem;
+      border: 1px solid var(--border-soft);
+      position: sticky;
+      top: 1rem;
+      align-self: flex-start;
+    }
+
+    .sidebar h2 {
+      font-size: 1.1rem;
+      margin-top: 0;
+      margin-bottom: 0.75rem;
+      color: var(--accent-blue);
+    }
+
+    .sidebar ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      font-size: 0.95rem;
+    }
+
+    .sidebar li {
+      margin-bottom: 0.4rem;
+    }
+
+    .sidebar a {
+      text-decoration: none;
+      color: var(--accent-blue);
+      padding: 0.2rem 0.4rem;
+      border-radius: 4px;
+      display: inline-block;
+    }
+
+    .sidebar a:hover,
+    .sidebar a.active-link {
+      background-color: var(--accent-blue-light);
+    }
+
+    /* Main content */
+    main {
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+    }
+
+    section {
+      background-color: var(--bg-card);
+      border-radius: 10px;
+      padding: 1.5rem 2rem;
+      border: 1px solid var(--border-soft);
+    }
+
+    section h2 {
+      margin-top: 0;
+      font-size: 1.4rem;
+      color: var(--accent-blue);
+      margin-bottom: 0.5rem;
+    }
+
+    section h3 {
+      font-size: 1.1rem;
+      color: var(--accent-blue);
+      margin-top: 1.5rem;
+      margin-bottom: 0.75rem;
+    }
+
+    section p {
+      font-size: 1rem;
+      line-height: 1.6;
+      margin: 0.5rem 0;
+    }
+
+    /* Visualization container */
+    .viz-container {
+      margin-top: 1rem;
+    }
+
+    .viz-box {
+      border-radius: 8px;
+      border: 2px dashed var(--accent-blue-light);
+      background-color: #fbf7ef;
+      min-height: 400px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #999;
+      font-style: italic;
+      margin-bottom: 1rem;
+      text-align: center;
+      padding: 2rem;
+    }
+
+    /* Caption area */
+    .caption {
+      background-color: #f9f6f0;
+      border-left: 4px solid var(--accent-blue);
+      padding: 1rem 1.2rem;
+      margin-top: 1rem;
+      border-radius: 4px;
+    }
+
+    .caption h4 {
+      margin: 0 0 0.5rem;
+      font-size: 0.95rem;
+      color: var(--accent-blue);
+      font-weight: bold;
+    }
+
+    .caption p {
+      margin: 0;
+      font-size: 0.95rem;
+      line-height: 1.6;
+      color: var(--text-dark);
+    }
+
+    .caption-placeholder {
+      color: #999;
+      font-style: italic;
+    }
+
+    /* Summary section */
+    #findings {
+      background-color: var(--accent-blue-light);
+      border: 2px solid var(--accent-blue);
+    }
+
+    #findings h2 {
+      color: var(--accent-blue);
+    }
+
+    .findings-list {
+      margin: 1rem 0;
+      padding-left: 1.5rem;
+    }
+
+    .findings-list li {
+      margin-bottom: 0.75rem;
+      line-height: 1.6;
+    }
+
+    .key-insight {
+      background-color: white;
+      padding: 1rem 1.2rem;
+      border-radius: 6px;
+      margin: 1rem 0;
+      border-left: 4px solid var(--accent-blue);
+    }
+
+    .key-insight h4 {
+      margin: 0 0 0.5rem;
+      color: var(--accent-blue);
+      font-size: 1rem;
+    }
+
+    .key-insight p {
+      margin: 0;
+    }
+
+    /* Responsive */
+    @media (max-width: 900px) {
+      .layout {
+        grid-template-columns: 1fr;
+      }
+
+      .sidebar {
+        position: static;
+      }
+    }
+
+    @media (max-width: 768px) {
+      header h1 {
+        font-size: 1.5rem;
+      }
+
+      nav.main-nav ul {
+        flex-direction: column;
+      }
+
+      nav.main-nav a {
+        text-align: center;
+        border-bottom: 1px solid rgba(255,255,255,0.1);
+      }
+
+      section {
+        padding: 1.2rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Visualizing and Understanding Student Dropout &amp; Success in Higher Education</h1>
+    <p>
+      An exploratory data visualization project using the "Predict Students Dropout and Academic Success"
+      dataset from the UCI Machine Learning Repository.
+    </p>
+  </header>
+
+  <nav class="main-nav">
+    <ul>
+      <li><a href="index.html">Home</a></li>
+      <li><a href="visualizations.html" class="active">Visualizations</a></li>
+    </ul>
+  </nav>
+
+  <div class="layout">
+    <!-- Sidebar navigation -->
+    <nav class="sidebar">
+      <h2>Visualizations</h2>
+      <ul>
+        <li><a href="#viz1">Visualization 1</a></li>
+        <li><a href="#viz2">Visualization 2</a></li>
+        <li><a href="#viz3">Visualization 3</a></li>
+        <li><a href="#viz4">Visualization 4</a></li>
+        <li><a href="#viz5">Visualization 5</a></li>
+        <li><a href="#findings">Key Findings</a></li>
+      </ul>
+    </nav>
+
+    <!-- Main content -->
+    <main>
+      <!-- Visualization 1 -->
+      <section id="viz1">
+        <h2>Visualization 1: [Title Here]</h2>
+        <div class="viz-container">
+          <div class="viz-box">
+            Insert your chart here
+          </div>
+          <div class="caption">
+            <h4>Caption & Analysis</h4>
+            <p class="caption-placeholder">
+              Add your caption here. Describe what the visualization shows, highlight key patterns,
+              and explain the significance of the findings. Mention any notable trends or outliers.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Altair Chart -->
+      <section id="viz2_altair">
+        <h2>Visualization 2: Financial Stability Factors</h2>
+        <div class="viz-container">
+          <iframe src="viz2_altair.html" 
+                width="100%" 
+                height="500" 
+                frameborder="0">
+        </iframe>
+        <div class="caption">
+            <h4>Analysis</h4>
+            <p>This visualization compares student outcomes across three financial indicators: debtor status,
+                scholarship status, and whether tuition fees are up to date. Across all three categories, the 
+                distribution of outcomes shifts noticeably between the “Yes” and “No” groups. For example, students
+                who are debtors or not up to date on tuition show a higher share of dropouts, while students without
+                debt or with tuition paid tend to have a larger percentage of graduates. Scholarship holders also appear 
+                to have a greater proportion of graduates compared to non-holders. These patterns suggest that the financial
+                markers included in the dataset are closely associated with differences in student outcomes.</p>
+        </div>
+    </div>
+</section>
+
+      <!-- D3 Chart -->
+<section id="donut_visualization">
+  <h2>Visualization 3: Student Outcomes by Number of Classes (Units) Enrolled</h2>
+  <div class="viz-container">
+    <iframe src="donut_visualization.html" 
+            width="100%" 
+            height="900" 
+            frameborder="0"
+            style="border: none;">
+    </iframe>
+    <div class="caption">
+      <h4>Analysis</h4>
+      <p>
+       These four charts show how student outcomes change across different levels of academic performance in the first semester. 
+       The first chart represents all students in the dataset and gives a baseline distribution, with graduates making up the largest group, 
+       followed by dropouts and enrolled students. When the students are separated by the number of units they successfully completed, 
+       the outcome patterns shift noticeably. High performers who complete 5-6 units have a much larger share of graduates and a smaller 
+       share of dropouts compared to the overall population. Medium performers, who complete 3-4 units, show a more balanced mix of outcomes,
+    with graduates, dropouts, and enrolled students all making up significant portions. The at-risk group, which consists of students who
+     completed 0-2 units, looks very different from the high-performing group. In this subset, dropouts account for most of the outcomes, 
+     while graduates make up only a small minority. The four charts together highlight how outcomes vary across performance levels, helping
+     to show where students begin to diverge in their academic paths.
+      </p>
+    </div>
+  </div>
+</section>
+
+</div>
+
+      <!-- Visualization 4 -->
+      <section id="viz4">
+        <h2>Visualization 4: [Title Here]</h2>
+        <div class="viz-container">
+          <div class="viz-box">
+            Insert your chart here
+          </div>
+          <div class="caption">
+            <h4>Caption & Analysis</h4>
+            <p class="caption-placeholder">
+              Add your caption here. Describe what the visualization shows, highlight key patterns,
+              and explain the significance of the findings. Mention any notable trends or outliers.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Visualization 5 -->
+      <section id="viz5">
+        <h2>Visualization 5: [Title Here]</h2>
+        <div class="viz-container">
+          <div class="viz-box">
+            Insert your chart here
+          </div>
+          <div class="caption">
+            <h4>Caption & Analysis</h4>
+            <p class="caption-placeholder">
+              Add your caption here. Describe what the visualization shows, highlight key patterns,
+              and explain the significance of the findings. Mention any notable trends or outliers.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Key Findings Summary -->
+      <section id="findings">
+        <h2>Key Findings & Summary</h2>
+        
+        <div class="key-insight">
+          <h4>Primary Insight</h4>
+          <p>
+            [Add your main takeaway here - what is the most important finding from your analysis?]
+          </p>
+        </div>
+
+        <h3>Major Findings</h3>
+        <ul class="findings-list">
+          <li>
+            <strong>Finding 1:</strong> [Description of key pattern observed in visualizations]
+          </li>
+          <li>
+            <strong>Finding 2:</strong> [Description of relationship between variables and outcomes]
+          </li>
+          <li>
+            <strong>Finding 3:</strong> [Description of surprising or notable trend]
+          </li>
+          <li>
+            <strong>Finding 4:</strong> [Description of implications for intervention strategies]
+          </li>
+          <li>
+            <strong>Finding 5:</strong> [Description of overall pattern across all visualizations]
+          </li>
+        </ul>
+
+        <h3>Implications for Higher Education</h3>
+        <p>
+          [Add a paragraph discussing what these findings mean for universities, administrators,
+          and student support services. How can these insights inform retention strategies?]
+        </p>
+
+        <h3>Recommendations</h3>
+        <ul class="findings-list">
+          <li>[Recommendation based on your findings]</li>
+          <li>[Recommendation based on your findings]</li>
+          <li>[Recommendation based on your findings]</li>
+        </ul>
+
+        <h3>Limitations & Future Work</h3>
+        <p>
+          [Discuss any limitations of the dataset or analysis, and suggest areas for future research]
+        </p>
+      </section>
+    </main>
+  </div>
+
+  <script>
+    // Highlight active sidebar link based on scroll position
+    const sections = document.querySelectorAll("main section");
+    const navLinks = document.querySelectorAll(".sidebar a[href^='#']");
+
+    function onScroll() {
+      let currentId = null;
+
+      sections.forEach(section => {
+        const rect = section.getBoundingClientRect();
+        if (rect.top <= 150 && rect.bottom >= 150) {
+          currentId = section.id;
+        }
+      });
+
+      navLinks.forEach(link => {
+        const targetId = link.getAttribute("href").substring(1);
+        if (targetId === currentId) {
+          link.classList.add("active-link");
+        } else {
+          link.classList.remove("active-link");
+        }
+      });
+    }
+
+    document.addEventListener("scroll", onScroll);
+
+    // Smooth scroll when clicking sidebar links
+    navLinks.forEach(link => {
+      link.addEventListener("click", function (e) {
+        const targetId = this.getAttribute("href").substring(1);
+        const target = document.getElementById(targetId);
+        if (target) {
+          e.preventDefault();
+          target.scrollIntoView({ behavior: "smooth", block: "start" });
+        }
+      });
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,82 @@
+{
+  "all": {
+    "outcomes": [
+      {
+        "outcome": "Graduate",
+        "value": 2209,
+        "color": "#2ca02c"
+      },
+      {
+        "outcome": "Dropout",
+        "value": 1421,
+        "color": "#d62728"
+      },
+      {
+        "outcome": "Enrolled",
+        "value": 794,
+        "color": "#ff7f0e"
+      }
+    ],
+    "total": 4424
+  },
+  "high": {
+    "outcomes": [
+      {
+        "outcome": "Graduate",
+        "value": 1958,
+        "color": "#2ca02c"
+      },
+      {
+        "outcome": "Dropout",
+        "value": 349,
+        "color": "#d62728"
+      },
+      {
+        "outcome": "Enrolled",
+        "value": 410,
+        "color": "#ff7f0e"
+      }
+    ],
+    "total": 2717
+  },
+  "medium": {
+    "outcomes": [
+      {
+        "outcome": "Graduate",
+        "value": 167,
+        "color": "#2ca02c"
+      },
+      {
+        "outcome": "Dropout",
+        "value": 297,
+        "color": "#d62728"
+      },
+      {
+        "outcome": "Enrolled",
+        "value": 238,
+        "color": "#ff7f0e"
+      }
+    ],
+    "total": 702
+  },
+  "low": {
+    "outcomes": [
+      {
+        "outcome": "Graduate",
+        "value": 84,
+        "color": "#2ca02c"
+      },
+      {
+        "outcome": "Dropout",
+        "value": 775,
+        "color": "#d62728"
+      },
+      {
+        "outcome": "Enrolled",
+        "value": 146,
+        "color": "#ff7f0e"
+      }
+    ],
+    "total": 1005
+  }
+}

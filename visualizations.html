@@ -425,29 +425,21 @@
               This visualization uses parents’ qualification ranks as an approximation for socioeconomic
               status (SES). Lower ranks represent little or no formal schooling, while higher ranks
               correspond to advanced degrees. The blue heatmap shows where all students fall within this
-              SES landscape, and the red dots highlight only those who eventually dropped out.
-            </p>
-            <p>
+              SES landscape, and the red dots highlight only those who eventually dropped out. 
               The strongest pattern in the plot is the large concentration of students in the lowest
               parental qualification range, which forms the darkest part of the heatmap. This region also
               contains the highest number of dropout cases. This suggests that students from lower-SES
               households—who often face financial constraints, fewer academic resources, and limited
-              support—are at significantly higher risk of leaving university.
-            </p>
-            <p>
+              support—are at significantly higher risk of leaving university. 
               The middle SES range is much lighter in density, indicating that fewer students in the
               dataset come from families with moderate educational backgrounds. Dropout cases in this
               region are present but scattered, showing that while moderate SES provides some stability,
-              it does not eliminate dropout risk.
-            </p>
-            <p>
+              it does not eliminate dropout risk. 
               At the high qualification ranks, the student population is smaller but notable. A few
               dropout cases still appear here, showing that leaving university is not exclusively a
               low-SES issue. Students from highly educated families may withdraw for non-financial
               reasons such as academic misalignment, mental health challenges, burnout, or shifting career
-              interests.
-            </p>
-            <p>
+              interests. 
               Overall, the visualization shows that dropout is most common in low-SES groups, largely due
               to concentrated population and higher structural barriers. However, dropout also occurs
               across the entire SES spectrum, revealing that financial stability is important but not the
@@ -476,8 +468,6 @@
               and the number of units they successfully completed. Points are color-coded by final
               outcome (dropout, graduate, or still enrolled). The dashed vertical and horizontal lines
               divide the space using median grade and median units approved. 
-            </p>
-            <p>
               The bottom-left quadrant (low grades and low approvals) represents a higher-risk dropout
               zone, while the top-right quadrant (high grades and high approvals) represents a lower-risk
               persistence zone. The dropdown menu allows the viewer to isolate each outcome group. 
@@ -485,9 +475,7 @@
               confirming that weak first-semester performance strongly predicts leaving the program. In
               contrast, graduates cluster in the high-grade, high-approval zone, showing that strong early
               achievement is linked with long-term academic success. 
-            </p>
-            <p>
-              Overall, this interactive “academic risk map” clearly highlights performance profiles
+              Overall, this clearly highlights performance profiles
               associated with dropout risk versus persistence, making early academic indicators easier to
               interpret visually.
             </p>
@@ -546,6 +534,8 @@
     </main>
   </div>
 
+
+  
   <script>
     const sections = document.querySelectorAll("main section");
     const navLinks = document.querySelectorAll(".sidebar a[href^='#']");
@@ -572,7 +562,6 @@
 
     document.addEventListener("scroll", onScroll);
 
-    // Smooth scroll when clicking sidebar links
     navLinks.forEach(link => {
       link.addEventListener("click", function (e) {
         const targetId = this.getAttribute("href").substring(1);

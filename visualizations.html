@@ -183,6 +183,37 @@
       padding: 2rem;
     }
 
+    /* Shared iframe styling for “normal” embedded charts */
+    .viz-frame {
+      width: 100%;
+      max-width: 1000px;
+      height: 420px;
+      border: none;
+      border-radius: 8px;
+      display: block;
+      margin: 0 auto;
+    }
+
+    /* 🔹 New: scaled iframe styling for large Plotly exports (viz 4 & 5) */
+    .scaled-iframe-wrapper {
+      width: 100%;
+      max-width: 1000px;
+      height: 420px;          /* visible area */
+      overflow: hidden;       /* hide scrollbars from the scaled frame */
+      margin: 0 auto;
+      border-radius: 8px;
+    }
+
+    .scaled-iframe {
+      width: 1400px;          /* assumed original figure width */
+      height: 900px;          /* assumed original figure height */
+      border: none;
+      border-radius: 8px;
+      transform: scale(0.7);  /* shrink to ~70% */
+      transform-origin: top left;
+      display: block;
+    }
+
     /* Caption area */
     .caption {
       background-color: #f9f6f0;
@@ -302,8 +333,8 @@
       <h2>Visualizations</h2>
       <ul>
         <li><a href="#viz1">Visualization 1</a></li>
-        <li><a href="#viz2">Visualization 2</a></li>
-        <li><a href="#viz3">Visualization 3</a></li>
+        <li><a href="#viz2_altair">Visualization 2</a></li>
+        <li><a href="#donut_visualization">Visualization 3</a></li>
         <li><a href="#viz4">Visualization 4</a></li>
         <li><a href="#viz5">Visualization 5</a></li>
         <li><a href="#findings">Key Findings</a></li>
@@ -333,65 +364,94 @@
       <section id="viz2_altair">
         <h2>Visualization 2: Financial Stability Factors</h2>
         <div class="viz-container">
-          <iframe src="viz2_altair.html" 
-                width="100%" 
-                height="500" 
-                frameborder="0">
-        </iframe>
-        <div class="caption">
+          <iframe src="viz2_altair.html"
+                  class="viz-frame"
+                  frameborder="0"></iframe>
+          <div class="caption">
             <h4>Analysis</h4>
-            <p>This visualization compares student outcomes across three financial indicators: debtor status,
-                scholarship status, and whether tuition fees are up to date. Across all three categories, the 
-                distribution of outcomes shifts noticeably between the “Yes” and “No” groups. For example, students
-                who are debtors or not up to date on tuition show a higher share of dropouts, while students without
-                debt or with tuition paid tend to have a larger percentage of graduates. Scholarship holders also appear 
-                to have a greater proportion of graduates compared to non-holders. These patterns suggest that the financial
-                markers included in the dataset are closely associated with differences in student outcomes.</p>
+            <p>
+              This visualization compares student outcomes across three financial indicators: debtor status,
+              scholarship status, and whether tuition fees are up to date. Across all three categories, the 
+              distribution of outcomes shifts noticeably between the “Yes” and “No” groups. For example, students
+              who are debtors or not up to date on tuition show a higher share of dropouts, while students without
+              debt or with tuition paid tend to have a larger percentage of graduates. Scholarship holders also appear 
+              to have a greater proportion of graduates compared to non-holders. These patterns suggest that the financial
+              markers included in the dataset are closely associated with differences in student outcomes.
+            </p>
+          </div>
         </div>
-    </div>
-</section>
+      </section>
 
       <!-- D3 Chart -->
-<section id="donut_visualization">
-  <h2>Visualization 3: Student Outcomes by Number of Classes (Units) Enrolled</h2>
-  <div class="viz-container">
-    <iframe src="donut_visualization.html" 
-            width="100%" 
-            height="900" 
-            frameborder="0"
-            style="border: none;">
-    </iframe>
-    <div class="caption">
-      <h4>Analysis</h4>
-      <p>
-       These four charts show how student outcomes change across different levels of academic performance in the first semester. 
-       The first chart represents all students in the dataset and gives a baseline distribution, with graduates making up the largest group, 
-       followed by dropouts and enrolled students. When the students are separated by the number of units they successfully completed, 
-       the outcome patterns shift noticeably. High performers who complete 5-6 units have a much larger share of graduates and a smaller 
-       share of dropouts compared to the overall population. Medium performers, who complete 3-4 units, show a more balanced mix of outcomes,
-    with graduates, dropouts, and enrolled students all making up significant portions. The at-risk group, which consists of students who
-     completed 0-2 units, looks very different from the high-performing group. In this subset, dropouts account for most of the outcomes, 
-     while graduates make up only a small minority. The four charts together highlight how outcomes vary across performance levels, helping
-     to show where students begin to diverge in their academic paths.
-      </p>
-    </div>
-  </div>
-</section>
-
-</div>
+      <section id="donut_visualization">
+        <h2>Visualization 3: Student Outcomes by Number of Classes (Units) Enrolled</h2>
+        <div class="viz-container">
+          <iframe src="donut_visualization.html"
+                  width="100%"
+                  height="900"
+                  frameborder="0"
+                  style="border: none;"></iframe>
+          <div class="caption">
+            <h4>Analysis</h4>
+            <p>
+              These four charts show how student outcomes change across different levels of academic performance in the first semester. 
+              The first chart represents all students in the dataset and gives a baseline distribution, with graduates making up the largest group, 
+              followed by dropouts and enrolled students. When the students are separated by the number of units they successfully completed, 
+              the outcome patterns shift noticeably. High performers who complete 5-6 units have a much larger share of graduates and a smaller 
+              share of dropouts compared to the overall population. Medium performers, who complete 3-4 units, show a more balanced mix of outcomes,
+              with graduates, dropouts, and enrolled students all making up significant portions. The at-risk group, which consists of students who
+              completed 0-2 units, looks very different from the high-performing group. In this subset, dropouts account for most of the outcomes, 
+              while graduates make up only a small minority. The four charts together highlight how outcomes vary across performance levels, helping
+              to show where students begin to diverge in their academic paths.
+            </p>
+          </div>
+        </div>
+      </section>
 
       <!-- Visualization 4 -->
       <section id="viz4">
-        <h2>Visualization 4: [Title Here]</h2>
+        <h2>Visualization 4: Socioeconomic Status & Dropout Distribution</h2>
         <div class="viz-container">
-          <div class="viz-box">
-            Insert your chart here
+          <!-- Scaled iframe so the entire Plotly export fits without scrolling -->
+          <div class="scaled-iframe-wrapper">
+            <iframe
+              src="viz1_ses.html"
+              class="scaled-iframe"></iframe>
           </div>
+
           <div class="caption">
             <h4>Caption & Analysis</h4>
-            <p class="caption-placeholder">
-              Add your caption here. Describe what the visualization shows, highlight key patterns,
-              and explain the significance of the findings. Mention any notable trends or outliers.
+            <p>
+              This visualization uses parents’ qualification ranks as an approximation for socioeconomic
+              status (SES). Lower ranks represent little or no formal schooling, while higher ranks
+              correspond to advanced degrees. The blue heatmap shows where all students fall within this
+              SES landscape, and the red dots highlight only those who eventually dropped out.
+            </p>
+            <p>
+              The strongest pattern in the plot is the large concentration of students in the lowest
+              parental qualification range, which forms the darkest part of the heatmap. This region also
+              contains the highest number of dropout cases. This suggests that students from lower-SES
+              households—who often face financial constraints, fewer academic resources, and limited
+              support—are at significantly higher risk of leaving university.
+            </p>
+            <p>
+              The middle SES range is much lighter in density, indicating that fewer students in the
+              dataset come from families with moderate educational backgrounds. Dropout cases in this
+              region are present but scattered, showing that while moderate SES provides some stability,
+              it does not eliminate dropout risk.
+            </p>
+            <p>
+              At the high qualification ranks, the student population is smaller but notable. A few
+              dropout cases still appear here, showing that leaving university is not exclusively a
+              low-SES issue. Students from highly educated families may withdraw for non-financial
+              reasons such as academic misalignment, mental health challenges, burnout, or shifting career
+              interests.
+            </p>
+            <p>
+              Overall, the visualization shows that dropout is most common in low-SES groups, largely due
+              to concentrated population and higher structural barriers. However, dropout also occurs
+              across the entire SES spectrum, revealing that financial stability is important but not the
+              only factor influencing student persistence.
             </p>
           </div>
         </div>
@@ -399,16 +459,37 @@
 
       <!-- Visualization 5 -->
       <section id="viz5">
-        <h2>Visualization 5: [Title Here]</h2>
+        <h2>Visualization 5: Academic Performance Risk Map</h2>
         <div class="viz-container">
-          <div class="viz-box">
-            Insert your chart here
+          <!-- Scaled iframe so the full risk map fits cleanly -->
+          <div class="scaled-iframe-wrapper">
+            <iframe
+              src="viz2_academic_risk.html"
+              class="scaled-iframe"></iframe>
           </div>
+
           <div class="caption">
             <h4>Caption & Analysis</h4>
-            <p class="caption-placeholder">
-              Add your caption here. Describe what the visualization shows, highlight key patterns,
-              and explain the significance of the findings. Mention any notable trends or outliers.
+            <p>
+              This visualization maps early academic performance into “risk zones” for different student
+              outcomes. Each point represents a student, plotted by their first-semester average grade
+              and the number of units they successfully completed. Points are color-coded by final
+              outcome (dropout, graduate, or still enrolled). The dashed vertical and horizontal lines
+              divide the space using median grade and median units approved. 
+            </p>
+            <p>
+              The bottom-left quadrant (low grades and low approvals) represents a higher-risk dropout
+              zone, while the top-right quadrant (high grades and high approvals) represents a lower-risk
+              persistence zone. The dropdown menu allows the viewer to isolate each outcome group. 
+              When filtering to only dropouts, many cluster in the low-grade, low-approval region,
+              confirming that weak first-semester performance strongly predicts leaving the program. In
+              contrast, graduates cluster in the high-grade, high-approval zone, showing that strong early
+              achievement is linked with long-term academic success. 
+            </p>
+            <p>
+              Overall, this interactive “academic risk map” clearly highlights performance profiles
+              associated with dropout risk versus persistence, making early academic indicators easier to
+              interpret visually.
             </p>
           </div>
         </div>
@@ -466,7 +547,6 @@
   </div>
 
   <script>
-    // Highlight active sidebar link based on scroll position
     const sections = document.querySelectorAll("main section");
     const navLinks = document.querySelectorAll(".sidebar a[href^='#']");
 

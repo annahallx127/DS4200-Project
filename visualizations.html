@@ -183,7 +183,7 @@
       padding: 2rem;
     }
 
-    /* Shared iframe styling for “normal” embedded charts */
+    /* Shared iframe styling for embedded charts */
     .viz-frame {
       width: 100%;
       max-width: 1000px;
@@ -213,22 +213,22 @@
       display: block;
     }
 
-    /* 🔹 New: scaled iframe styling for large Plotly exports (viz 4 & 5) */
+    /* Scaled iframe styling */
     .scaled-iframe-wrapper {
       width: 100%;
       max-width: 1000px;
-      height: 420px;          /* visible area */
-      overflow: hidden;       /* hide scrollbars from the scaled frame */
+      height: 420px;         
+      overflow: hidden;      
       margin: 0 auto;
       border-radius: 8px;
     }
 
     .scaled-iframe {
-      width: 1400px;          /* assumed original figure width */
-      height: 900px;          /* assumed original figure height */
+      width: 1400px;          
+      height: 900px;          
       border: none;
       border-radius: 8px;
-      transform: scale(0.7);  /* shrink to ~70% */
+      transform: scale(0.7);  
       transform-origin: top left;
       display: block;
     }
@@ -376,9 +376,9 @@
             <h4>Caption & Analysis</h4>
             <p>
               This sunburst diagram demonstrates how financial stress factors, such as debtor status (has debt vs. no debt),
-              tuition status (fees up to date vs. not up to date), and scholarshp status (has scholarship vs. no scholarship) impacts
-              the final academic outcome of students in higher education. This diagram higlights that students who do experience financial
-              strain with debt and unpaid tuition are more likely to drop out compred to students without debt and their fees up to 
+              tuition status (fees up to date vs. not up to date), and scholarship status (has scholarship vs. no scholarship) impacts
+              the final academic outcome of students in higher education. This diagram highlights that students who do experience financial
+              strain with debt and unpaid tuition are more likely to drop out compared to students without debt and their fees up to 
               date. There are higher graduation rates amongst students that hold scholarships and have no debt. However, this diagram also 
               shows how even among students in debt, those students with scholarships tend to have higher graduation
               outcomes than students without scholarships, indicating the meaningful role scholarships play in keeping students
@@ -452,7 +452,7 @@
           <div class="caption">
             <h4>Caption & Analysis</h4>
             <p>
-              This visualization uses parents’ qualification ranks as an approximation for socioeconomic
+              This visualization uses parents' qualification ranks as an approximation for socioeconomic
               status (SES). Lower ranks represent little or no formal schooling, while higher ranks
               correspond to advanced degrees. The blue heatmap shows where all students fall within this
               SES landscape, and the red dots highlight only those who eventually dropped out. 
@@ -513,7 +513,7 @@
         </div>
       </section>
 
-      <!-- Visualization 6 (altair vis 3 -->
+      <!-- Visualization 6 (altair vis 3) -->
       <section id="viz6">
         <h2>Altair Visualization 3: Student Outcomes Based on First Semester Performance</h2>
         <div class="viz-container">
@@ -540,95 +540,109 @@
         </div>
       </section>
 
-      <!-- Key Findings Summary -->
-      <section id="findings">
-        <h2>Key Findings & Summary</h2>
-        
-        <div class="key-insight">
-          <h4>Primary Insight</h4>
-          <p>
-            [Add your main takeaway here - what is the most important finding from your analysis?]
-          </p>
-        </div>
-
-        <h3>Major Findings</h3>
-        <ul class="findings-list">
-          <li>
-            <strong>Finding 1:</strong> [Description of key pattern observed in visualizations]
-          </li>
-          <li>
-            <strong>Finding 2:</strong> [Description of relationship between variables and outcomes]
-          </li>
-          <li>
-            <strong>Finding 3:</strong> [Description of surprising or notable trend]
-          </li>
-          <li>
-            <strong>Finding 4:</strong> [Description of implications for intervention strategies]
-          </li>
-          <li>
-            <strong>Finding 5:</strong> [Description of overall pattern across all visualizations]
-          </li>
-        </ul>
-
-        <h3>Implications for Higher Education</h3>
-        <p>
-          [Add a paragraph discussing what these findings mean for universities, administrators,
-          and student support services. How can these insights inform retention strategies?]
-        </p>
-
-        <h3>Recommendations</h3>
-        <ul class="findings-list">
-          <li>[Recommendation based on your findings]</li>
-          <li>[Recommendation based on your findings]</li>
-          <li>[Recommendation based on your findings]</li>
-        </ul>
-
-        <h3>Limitations & Future Work</h3>
-        <p>
-          [Discuss any limitations of the dataset or analysis, and suggest areas for future research]
-        </p>
-      </section>
-    </main>
+    <!-- Key Findings Summary -->
+<section id="findings">
+  <h2>Key Findings & Summary</h2>
+  
+  <div class="key-insight">
+    <h4>Primary Insight</h4>
+    <p>
+      The visualizations reveal consistent patterns linking financial circumstances,
+      early academic performance, and family background with the three student outcomes
+      in this dataset. While we cannot determine the exact reasons behind each student’s outcome, the patterns highlight 
+      potential factors that appear closely associated with whether students graduate, stay enrolled, or drop out.
+      These trends especially point to groups of students whose academic paths diverge early, often alongside financial 
+      strain or first-semester academic challenges.
+    </p>
   </div>
 
+  <h3>Major Findings</h3>
+  <ul class="findings-list">
 
-  
-  <script>
-    const sections = document.querySelectorAll("main section");
-    const navLinks = document.querySelectorAll(".sidebar a[href^='#']");
+    <li>
+      <strong>Finding 1:</strong> Students with debt or unpaid tuition appear more 
+      frequently among dropouts, while financially stable students have a higher 
+      proportion of graduates.
+      <br><em>
+        In the sunburst and bar charts, financial strain aligns with a higher share 
+        of dropout outcomes, suggesting money-related challenges may influence how 
+        students progress.
+      </em>
+    </li>
 
-    function onScroll() {
-      let currentId = null;
+    <li>
+      <strong>Finding 2:</strong> Scholarship holders tend to have stronger outcomes.
+      <br><em>
+        Even within the groups experiencing debt or unpaid tuition, students with 
+        scholarships show a larger percentage of graduates compared to those without 
+        scholarship support.
+      </em>
+    </li>
 
-      sections.forEach(section => {
-        const rect = section.getBoundingClientRect();
-        if (rect.top <= 150 && rect.bottom >= 150) {
-          currentId = section.id;
-        }
-      });
+    <li>
+      <strong>Finding 3:</strong> First-semester academic performance aligns closely 
+      with final outcomes.
+      <br><em>
+        Students who complete and pass more courses in their first semester cluster 
+        in the graduate group, while dropouts are concentrated among students with 
+        fewer evaluations and approvals.
+      </em>
+    </li>
 
-      navLinks.forEach(link => {
-        const targetId = link.getAttribute("href").substring(1);
-        if (targetId === currentId) {
-          link.classList.add("active-link");
-        } else {
-          link.classList.remove("active-link");
-        }
-      });
-    }
+    <li>
+      <strong>Finding 4:</strong> Students whose parents have lower educational 
+      qualifications appear more frequently in the dropout group.
+      <br><em>
+        The SES visualization shows higher dropout density among students whose 
+        parents have limited schooling, indicating that background factors may shape 
+        early academic experiences.
+      </em>
+    </li>
 
-    document.addEventListener("scroll", onScroll);
+    <li>
+      <strong>Finding 5:</strong> No single feature explains student outcomes alone.
+      <br><em>
+        Financial factors, early performance, and socioeconomic background each show 
+        patterns across different visualizations, suggesting that multiple 
+        conditions interact throughout a student's academic path.
+      </em>
+    </li>
 
-    navLinks.forEach(link => {
-      link.addEventListener("click", function (e) {
-        const targetId = this.getAttribute("href").substring(1);
-        const target = document.getElementById(targetId);
-        if (target) {
-          e.preventDefault();
-          target.scrollIntoView({ behavior: "smooth", block: "start" });
-        }
-      });
-    });
-  </script>
-</body>
-</html>
+  </ul>
+
+  <h3>Implications for Higher Education</h3>
+  <p>
+    These patterns suggest that financial, academic, and background-related factors
+    all matter when thinking about student persistence. For universities, this means
+    that identifying students who might need extra support requires looking beyond
+    just grades or financial records on their own. Paying closer attention to these
+    patterns earlier—especially during the transition into the first semester—may help
+    institutions offer more timely support through advising, academic resources, or
+    financial guidance.
+  </p>
+
+  <h3>Recommendations</h3>
+  <ul class="findings-list">
+    <li>
+      Expand financial guidance and emergency aid options for students who begin 
+      their program with debt or unpaid tuition.
+    </li>
+    <li>
+      Strengthen early-semester academic support through tutoring, study workshops, 
+      or structured advising for students struggling in their first term.
+    </li>
+    <li>
+      Create targeted mentorship or transition programs for students from families 
+      with lower educational backgrounds to support their adjustment to university life.
+    </li>
+  </ul>
+
+  <h3>Limitations & Future Work</h3>
+  <p>
+    This dataset comes from a single institution and does not capture factors like 
+    mental health, work responsibilities, or personal circumstances that can also 
+    influence academic outcomes. Future work could include additional qualitative or 
+    behavioral information, or expand the analysis to multiple universities to see 
+    whether these patterns remain consistent in broader contexts.
+  </p>
+</section>

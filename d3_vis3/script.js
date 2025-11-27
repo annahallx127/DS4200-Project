@@ -54,22 +54,23 @@ d3.dsv(";", "student.csv").then(data => {
     .outerRadius(d => d.y1);
 
 
-  // color scales
-  const colorDebtor = d3.scaleOrdinal()
-    .domain(["Has Debt", "No Debt"])
-    .range(["#ff6f61", "#6b5b95"]);
+// color scales
+const colorDebtor = d3.scaleOrdinal()
+  .domain(["Has Debt", "No Debt"])
+  .range(["#ff6f61", "#6b5b95"]);
 
-  const colorTuition = d3.scaleOrdinal()
-    .domain(["Tuition: Up to Date", "Tuition: Not Up to Date"])
-    .range(["#88b04b", "#f7cac9"]);
+const colorTuition = d3.scaleOrdinal()
+  .domain(["Tuition Up to Date", "Tuition Not Up to Date"])
+  .range(["#88b04b", "#f7cac9"]);
 
-  const colorScholarship = d3.scaleOrdinal()
-    .domain(["Scholarship: Yes", "Scholarship: No"])
-    .range(["#92a8d1", "#955251"]);
+const colorScholarship = d3.scaleOrdinal()
+  .domain(["Holds Scholarship", "No Scholarship"])
+  .range(["#92a8d1", "#955251"]);
 
-  const colorOutcome = d3.scaleOrdinal()
-    .domain(["Outcome: Graduate", "Outcome: Dropout", "Outcome: Enrolled"])
-    .range(["#034f84", "#d65076", "#ffb347"]);
+const colorOutcome = d3.scaleOrdinal()
+  .domain(["Graduate", "Dropout", "Enrolled"])
+  .range(["#034f84", "#d65076", "#ffb347"]);
+
 
   function getColor(d) {
     if (!d.depth) return "#ccc";

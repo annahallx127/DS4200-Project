@@ -1,0 +1,155 @@
+:root {
+  --bg-beige: #f5efe4;
+  --bg-card: #fdf8f0;
+  --accent-blue: #2C5F8D;
+  --accent-blue-light: #d3e2f5;
+  --text-dark: #333333;
+  --border-soft: #d5c7b6;
+}
+
+* {
+  box-sizing: border-box;
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  font-family: Georgia, "Times New Roman", serif;
+  background-color: var(--bg-beige);
+  color: var(--text-dark);
+}
+
+header {
+  background: linear-gradient(135deg, var(--accent-blue), #1c3f63);
+  color: white;
+  padding: 2rem 1.5rem;
+}
+
+header h1 {
+  margin: 0 0 0.5rem;
+  font-size: 1.9rem;
+  line-height: 1.3;
+}
+
+header p {
+  margin: 0;
+  max-width: 900px;
+  opacity: 0.9;
+  font-size: 0.98rem;
+}
+
+nav.main-nav {
+  background-color: var(--accent-blue);
+  padding: 0;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+nav.main-nav ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+nav.main-nav li {
+  margin: 0;
+}
+
+nav.main-nav a {
+  display: block;
+  padding: 1rem 1.5rem;
+  color: white;
+  text-decoration: none;
+  transition: background-color 0.3s;
+}
+
+nav.main-nav a:hover,
+nav.main-nav a.active {
+  background-color: #1c3f63;
+}
+
+.container {
+  max-width: 1000px;
+  margin: 2rem auto;
+  padding: 0 1.5rem;
+}
+
+section {
+  background-color: var(--bg-card);
+  border-radius: 10px;
+  padding: 2rem 2.5rem;
+  border: 1px solid var(--border-soft);
+  margin-bottom: 2rem;
+}
+
+section h2 {
+  margin-top: 0;
+  font-size: 1.5rem;
+  color: var(--accent-blue);
+  margin-bottom: 1rem;
+}
+
+section p {
+  font-size: 1rem;
+  line-height: 1.7;
+  margin-bottom: 1rem;
+}
+
+section p:last-child {
+  margin-bottom: 0;
+}
+
+.references-list {
+  margin: 1rem 0 0;
+  padding-left: 1.5rem;
+  font-size: 0.98rem;
+}
+
+.references-list li {
+  margin-bottom: 0.75rem;
+  line-height: 1.6;
+}
+
+.references-list a {
+  color: var(--accent-blue);
+  text-decoration: none;
+}
+
+.references-list a:hover {
+  text-decoration: underline;
+}
+
+.hero-image-wrapper {
+  width: 100%;
+  max-width: 1000px;
+  margin: 2rem auto 1rem auto;
+  text-align: center;
+}
+
+.hero-image {
+  width: 100%;
+  border-radius: 12px;
+  display: block;
+  box-shadow: 0 3px 6px rgba(0,0,0,0.08);
+}
+
+@media (max-width: 768px) {
+  header h1 {
+    font-size: 1.5rem;
+  }
+
+  nav.main-nav ul {
+    flex-direction: column;
+  }
+
+  nav.main-nav a {
+    text-align: center;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+  }
+
+  section {
+    padding: 1.5rem;
+  }
+}

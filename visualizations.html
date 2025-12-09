@@ -4,331 +4,7 @@
   <meta charset="UTF-8">
   <title>Student Dropout & Success - Visualizations</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <style>
-    :root {
-      --bg-beige: #f5efe4;
-      --bg-card: #fdf8f0;
-      --accent-blue: #2C5F8D;
-      --accent-blue-light: #d3e2f5;
-      --text-dark: #333333;
-      --border-soft: #d5c7b6;
-    }
-
-    * {
-      box-sizing: border-box;
-      scroll-behavior: smooth;
-    }
-
-    body {
-      margin: 0;
-      font-family: Georgia, "Times New Roman", serif;
-      background-color: var(--bg-beige);
-      color: var(--text-dark);
-    }
-
-    header {
-      background: linear-gradient(135deg, var(--accent-blue), #1c3f63);
-      color: white;
-      padding: 2rem 1.5rem;
-    }
-
-    header h1 {
-      margin: 0 0 0.5rem;
-      font-size: 1.9rem;
-      line-height: 1.3;
-    }
-
-    header p {
-      margin: 0;
-      max-width: 900px;
-      opacity: 0.9;
-      font-size: 0.98rem;
-    }
-
-    /* Navigation bar */
-    nav.main-nav {
-      background-color: var(--accent-blue);
-      padding: 0;
-      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-    }
-
-    nav.main-nav ul {
-      list-style: none;
-      margin: 0;
-      padding: 0;
-      display: flex;
-      justify-content: center;
-      flex-wrap: wrap;
-    }
-
-    nav.main-nav li {
-      margin: 0;
-    }
-
-    nav.main-nav a {
-      display: block;
-      padding: 1rem 1.5rem;
-      color: white;
-      text-decoration: none;
-      transition: background-color 0.3s;
-    }
-
-    nav.main-nav a:hover,
-    nav.main-nav a.active {
-      background-color: #1c3f63;
-    }
-
-    .layout {
-      display: grid;
-      grid-template-columns: minmax(220px, 270px) minmax(0, 1fr);
-      gap: 1.5rem;
-      padding: 1.5rem;
-      max-width: 1400px;
-      margin: 0 auto;
-    }
-
-    /* Sidebar navigation */
-    .sidebar {
-      background-color: var(--bg-card);
-      border-radius: 10px;
-      padding: 1.2rem 1rem;
-      border: 1px solid var(--border-soft);
-      position: sticky;
-      top: 1rem;
-      align-self: flex-start;
-    }
-
-    .sidebar h2 {
-      font-size: 1.1rem;
-      margin-top: 0;
-      margin-bottom: 0.75rem;
-      color: var(--accent-blue);
-    }
-
-    .sidebar ul {
-      list-style: none;
-      padding: 0;
-      margin: 0;
-      font-size: 0.95rem;
-    }
-
-    .sidebar li {
-      margin-bottom: 0.4rem;
-    }
-
-    .sidebar a {
-      text-decoration: none;
-      color: var(--accent-blue);
-      padding: 0.2rem 0.4rem;
-      border-radius: 4px;
-      display: inline-block;
-    }
-
-    .sidebar a:hover,
-    .sidebar a.active-link {
-      background-color: var(--accent-blue-light);
-    }
-
-    /* Main content */
-    main {
-      display: flex;
-      flex-direction: column;
-      gap: 2rem;
-    }
-
-    section {
-      background-color: var(--bg-card);
-      border-radius: 10px;
-      padding: 1.5rem 2rem;
-      border: 1px solid var(--border-soft);
-    }
-
-    section h2 {
-      margin-top: 0;
-      font-size: 1.4rem;
-      color: var(--accent-blue);
-      margin-bottom: 0.5rem;
-    }
-
-    section h3 {
-      font-size: 1.1rem;
-      color: var(--accent-blue);
-      margin-top: 1.5rem;
-      margin-bottom: 0.75rem;
-    }
-
-    section p {
-      font-size: 1rem;
-      line-height: 1.6;
-      margin: 0.5rem 0;
-    }
-
-    /* Visualization container */
-    .viz-container {
-      margin-top: 1rem;
-    }
-
-    .viz-box {
-      border-radius: 8px;
-      border: 2px dashed var(--accent-blue-light);
-      background-color: #fbf7ef;
-      min-height: 400px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: #999;
-      font-style: italic;
-      margin-bottom: 1rem;
-      text-align: center;
-      padding: 2rem;
-    }
-
-    
-    .viz-frame {
-      width: 100%;
-      max-width: 1000px;
-      height: 420px;
-      border: none;
-      border-radius: 8px;
-      display: block;
-      margin: 0 auto;
-    }
-
-    .sunburst-wrapper {
-      width: 100%;
-      max-width: 1000px;
-      height: 550px;
-      overflow: hidden;
-      margin: 0 auto;
-      border-radius: 8px;
-    }
-
-    .sunburst-frame {
-      width: 1400px;         
-      height: 900px;          
-      border: none;
-      border-radius: 8px;
-      transform: scale(0.7);  
-      transform-origin: top left;
-      display: block;
-    }
-
-    /* Scaled iframe styling */
-    .scaled-iframe-wrapper {
-      width: 100%;
-      max-width: 1000px;
-      height: 460px;         
-      overflow: hidden;      
-      margin: 0 auto;
-      border-radius: 8px;
-    }
-
-    .scaled-iframe {
-      width: 1400px;          
-      height: 1000px;          
-      border: none;
-      border-radius: 8px;
-      transform: scale(0.7);  
-      transform-origin: top left;
-      display: block;
-    }
-
-    /* Caption area */
-    .caption {
-      background-color: #f9f6f0;
-      border-left: 4px solid var(--accent-blue);
-      padding: 1rem 1.2rem;
-      margin-top: 1rem;
-      border-radius: 4px;
-    }
-
-    .caption h4 {
-      margin: 0 0 0.5rem;
-      font-size: 0.95rem;
-      color: var(--accent-blue);
-      font-weight: bold;
-    }
-
-    .caption p {
-      margin: 0;
-      font-size: 0.95rem;
-      line-height: 1.6;
-      color: var(--text-dark);
-    }
-
-    .caption-placeholder {
-      color: #999;
-      font-style: italic;
-    }
-
-    /* Summary section */
-    #findings {
-      background-color: var(--accent-blue-light);
-      border: 2px solid var(--accent-blue);
-    }
-
-    #findings h2 {
-      color: var(--accent-blue);
-    }
-
-    .findings-list {
-      margin: 1rem 0;
-      padding-left: 1.5rem;
-    }
-
-    .findings-list li {
-      margin-bottom: 0.75rem;
-      line-height: 1.6;
-    }
-
-    .key-insight {
-      background-color: white;
-      padding: 1rem 1.2rem;
-      border-radius: 6px;
-      margin: 1rem 0;
-      border-left: 4px solid var(--accent-blue);
-    }
-
-    .key-insight h4 {
-      margin: 0 0 0.5rem;
-      color: var(--accent-blue);
-      font-size: 1rem;
-    }
-
-    .key-insight p {
-      margin: 0;
-    }
-
-    /* Responsive */
-    @media (max-width: 900px) {
-      .layout {
-        grid-template-columns: 1fr;
-      }
-
-      .sidebar {
-        position: static;
-      }
-    }
-
-    @media (max-width: 768px) {
-      header h1 {
-        font-size: 1.5rem;
-      }
-
-      nav.main-nav ul {
-        flex-direction: column;
-      }
-
-      nav.main-nav a {
-        text-align: center;
-        border-bottom: 1px solid rgba(255,255,255,0.1);
-      }
-
-      section {
-        padding: 1.2rem;
-      }
-    }
-  </style>
+  <link rel="stylesheet" href="visualizations.css">
 </head>
 <body>
   <header>
@@ -356,7 +32,7 @@
         <li><a href="#viz4">Socioeconomic Status & Dropout Distribution</a></li>
         <li><a href="#donut_visualization">Student Outcomes by Number of Classes (Units) Enrolled</a></li>
         <li><a href="#viz5">Academic Performance Risk Map</a></li>
-        <li><a href='#viz6'>Student Outcomes Based on First Semester Performance</a></li>
+        <li><a href="#viz6">Student Outcomes Based on First Semester Performance</a></li>
         <li><a href="#findings">Key Findings</a></li>
       </ul>
     </nav>
@@ -382,7 +58,6 @@
               outcomes than students without scholarships, indicating the meaningful role scholarships play in keeping students
               in school. Overall, this visualization reveals that financial and academic academic outcomes are deeply interconnected
               and financial support can have a signficant impact on student success.
-              
             </p>
           </div>
         </div>
@@ -448,7 +123,7 @@
         </div>
       </section>
 
-       <section id="donut_visualization">
+      <section id="donut_visualization">
         <h2>Student Outcomes by Number of Classes (Units) Enrolled</h2>
         <div class="viz-container">
           <iframe src="donut_visualization.html"
@@ -485,17 +160,17 @@
           <div class="caption">
             <h4>Caption & Analysis</h4>
             <p>
-             This visualization shows how early academic performance relates to student outcomes. 
-             Each point represents a student based on their first-semester average grade and the number of 
-             units they passed. Students are color coded by final outcome. The dashed vertical and horizontal 
-             lines mark the median grade and median approvals, forming four performance zones.
-             The bottom left zone contains many dropouts, while the top right reflects stronger performance and a higher 
-             likelihood of persistence. The dropdown lets the viewer focus on each outcome group.
-             The added regression lines help clarify these patterns. The line for graduates slopes higher, showing that their 
-             performance improves more as grades and approvals increase. The dropout line is flatter and lower, reflecting weaker 
-             academic gains. The line for enrolled students sits between the two, indicating mixed progress.
-             Together, the clusters and trend lines suggest that dropouts tend to start and remain lower performing, enrolled 
-             students show moderate progression, and graduates display the strongest upward trajectory.
+              This visualization shows how early academic performance relates to student outcomes. 
+              Each point represents a student based on their first-semester average grade and the number of 
+              units they passed. Students are color coded by final outcome. The dashed vertical and horizontal 
+              lines mark the median grade and median approvals, forming four performance zones.
+              The bottom left zone contains many dropouts, while the top right reflects stronger performance and a higher 
+              likelihood of persistence. The dropdown lets the viewer focus on each outcome group.
+              The added regression lines help clarify these patterns. The line for graduates slopes higher, showing that their 
+              performance improves more as grades and approvals increase. The dropout line is flatter and lower, reflecting weaker 
+              academic gains. The line for enrolled students sits between the two, indicating mixed progress.
+              Together, the clusters and trend lines suggest that dropouts tend to start and remain lower performing, enrolled 
+              students show moderate progression, and graduates display the strongest upward trajectory.
             </p>
           </div>
         </div>
@@ -506,8 +181,10 @@
         <div class="viz-container">
           <iframe
             src="altair_vis3/scatter_outcomes.html"
-            class="viz-frame">
-            frameborder="0"</iframe>
+            width="100%"
+                  height="550"
+                  frameborder="0"
+                  style="border: none;"></iframe>
           <div class="caption">
             <h4>Caption & Analysis</h4>
             <p>
@@ -527,108 +204,110 @@
         </div>
       </section>
 
-<section id="findings">
-  <h2>Key Findings & Summary</h2>
-  
-  <div class="key-insight">
-    <h4>Primary Insight</h4>
-    <p>
-      The visualizations reveal consistent patterns linking financial circumstances,
-      early academic performance, and family background with the three student outcomes
-      in this dataset. While we cannot determine the exact reasons behind each student's outcome, the patterns highlight 
-      potential factors that appear closely associated with whether students graduate, stay enrolled, or drop out.
-      These trends especially point to groups of students whose academic paths diverge early, often alongside financial 
-      strain or first-semester academic challenges.
-    </p>
+      <section id="findings">
+        <h2>Key Findings & Summary</h2>
+        
+        <div class="key-insight">
+          <h4>Primary Insight</h4>
+          <p>
+            The visualizations reveal consistent patterns linking financial circumstances,
+            early academic performance, and family background with the three student outcomes
+            in this dataset. While we cannot determine the exact reasons behind each student's outcome, the patterns highlight 
+            potential factors that appear closely associated with whether students graduate, stay enrolled, or drop out.
+            These trends especially point to groups of students whose academic paths diverge early, often alongside financial 
+            strain or first-semester academic challenges.
+          </p>
+        </div>
+
+        <h3>Major Findings</h3>
+        <ul class="findings-list">
+          <li>
+            <strong>Finding 1:</strong> Students with debt or unpaid tuition appear more 
+            frequently among dropouts, while financially stable students have a higher 
+            proportion of graduates.
+            <br><em>
+              In the sunburst and bar charts, financial strain aligns with a higher share 
+              of dropout outcomes, suggesting money-related challenges may influence how 
+              students progress.
+            </em>
+          </li>
+
+          <li>
+            <strong>Finding 2:</strong> Scholarship holders tend to have stronger outcomes.
+            <br><em>
+              Even within the groups experiencing debt or unpaid tuition, students with 
+              scholarships show a larger percentage of graduates compared to those without 
+              scholarship support.
+            </em>
+          </li>
+
+          <li>
+            <strong>Finding 3:</strong> First-semester academic performance aligns closely 
+            with final outcomes.
+            <br><em>
+              Students who complete and pass more courses in their first semester cluster 
+              in the graduate group, while dropouts are concentrated among students with 
+              fewer evaluations and approvals.
+            </em>
+          </li>
+
+          <li>
+            <strong>Finding 4:</strong> Students whose parents have lower educational 
+            qualifications appear more frequently in the dropout group.
+            <br><em>
+              The SES visualization shows higher dropout density among students whose 
+              parents have limited schooling, indicating that background factors may shape 
+              early academic experiences.
+            </em>
+          </li>
+
+          <li>
+            <strong>Finding 5:</strong> No single feature explains student outcomes alone.
+            <br><em>
+              Financial factors, early performance, and socioeconomic background each show 
+              patterns across different visualizations, suggesting that multiple 
+              conditions interact throughout a students academic path.
+            </em>
+          </li>
+        </ul>
+
+        <h3>Implications for Higher Education</h3>
+        <p>
+          These patterns suggest that financial, academic, and background-related factors
+          all matter when thinking about student persistence. For universities, this means
+          that identifying students who might need extra support requires looking beyond
+          just grades or financial records on their own. Paying closer attention to these
+          patterns earlier, especially during the transition into the first semester, may help
+          institutions offer more timely support through advising, academic resources, or
+          financial guidance.
+        </p>
+
+        <h3>Recommendations</h3>
+        <ul class="findings-list">
+          <li>
+            Expand financial guidance and emergency aid options for students who begin 
+            their program with debt or unpaid tuition.
+          </li>
+          <li>
+            Strengthen early-semester academic support through tutoring, study workshops, 
+            or structured advising for students struggling in their first term.
+          </li>
+          <li>
+            Create targeted mentorship or transition programs for students from families 
+            with lower educational backgrounds to support their adjustment to university life.
+          </li>
+        </ul>
+
+        <h3>Limitations & Future Work</h3>
+        <p>
+          This dataset comes from a single institution and does not capture factors like 
+          mental health, work responsibilities, or personal circumstances that can also 
+          influence academic outcomes. Future work could include additional qualitative or 
+          behavioral information, or expand the analysis to multiple universities to see 
+          whether these patterns remain consistent in broader contexts.
+        </p>
+      </section>
+    </main>
   </div>
-
-  <h3>Major Findings</h3>
-  <ul class="findings-list">
-
-    <li>
-      <strong>Finding 1:</strong> Students with debt or unpaid tuition appear more 
-      frequently among dropouts, while financially stable students have a higher 
-      proportion of graduates.
-      <br><em>
-        In the sunburst and bar charts, financial strain aligns with a higher share 
-        of dropout outcomes, suggesting money-related challenges may influence how 
-        students progress.
-      </em>
-    </li>
-
-    <li>
-      <strong>Finding 2:</strong> Scholarship holders tend to have stronger outcomes.
-      <br><em>
-        Even within the groups experiencing debt or unpaid tuition, students with 
-        scholarships show a larger percentage of graduates compared to those without 
-        scholarship support.
-      </em>
-    </li>
-
-    <li>
-      <strong>Finding 3:</strong> First-semester academic performance aligns closely 
-      with final outcomes.
-      <br><em>
-        Students who complete and pass more courses in their first semester cluster 
-        in the graduate group, while dropouts are concentrated among students with 
-        fewer evaluations and approvals.
-      </em>
-    </li>
-
-    <li>
-      <strong>Finding 4:</strong> Students whose parents have lower educational 
-      qualifications appear more frequently in the dropout group.
-      <br><em>
-        The SES visualization shows higher dropout density among students whose 
-        parents have limited schooling, indicating that background factors may shape 
-        early academic experiences.
-      </em>
-    </li>
-
-    <li>
-      <strong>Finding 5:</strong> No single feature explains student outcomes alone.
-      <br><em>
-        Financial factors, early performance, and socioeconomic background each show 
-        patterns across different visualizations, suggesting that multiple 
-        conditions interact throughout a students academic path.
-      </em>
-    </li>
-
-  </ul>
-
-  <h3>Implications for Higher Education</h3>
-  <p>
-    These patterns suggest that financial, academic, and background-related factors
-    all matter when thinking about student persistence. For universities, this means
-    that identifying students who might need extra support requires looking beyond
-    just grades or financial records on their own. Paying closer attention to these
-    patterns earlier, especially during the transition into the first semester, may help
-    institutions offer more timely support through advising, academic resources, or
-    financial guidance.
-  </p>
-
-  <h3>Recommendations</h3>
-  <ul class="findings-list">
-    <li>
-      Expand financial guidance and emergency aid options for students who begin 
-      their program with debt or unpaid tuition.
-    </li>
-    <li>
-      Strengthen early-semester academic support through tutoring, study workshops, 
-      or structured advising for students struggling in their first term.
-    </li>
-    <li>
-      Create targeted mentorship or transition programs for students from families 
-      with lower educational backgrounds to support their adjustment to university life.
-    </li>
-  </ul>
-
-  <h3>Limitations & Future Work</h3>
-  <p>
-    This dataset comes from a single institution and does not capture factors like 
-    mental health, work responsibilities, or personal circumstances that can also 
-    influence academic outcomes. Future work could include additional qualitative or 
-    behavioral information, or expand the analysis to multiple universities to see 
-    whether these patterns remain consistent in broader contexts.
-  </p>
-</section>
+</body>
+</html>

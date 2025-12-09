@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Student Dropout & Success - Home</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="home.css">
+</head>
+<body>
+  <header>
+    <h1>Visualizing and Understanding Student Dropout &amp; Success in Higher Education</h1>
+    <p>
+      An exploratory data visualization project using the "Predict Students Dropout and Academic Success"
+      dataset from the UCI Machine Learning Repository.
+    </p>
+    <p>
+      By: Aarya Dhru, Anna Hall, &amp; Melissa Rivera (Group 25)
+    </p>
+  </header>
+
+  <nav class="main-nav">
+    <ul>
+      <li><a href="home.html" class="active">Home</a></li>
+      <li><a href="visualizations.html">Visualizations</a></li>
+    </ul>
+  </nav>
+
+  <div class="container">
+
+    <div class="hero-image-wrapper">
+      <img src="media/student.jpg" alt="Students in lecture hall" class="hero-image">
+    </div>
+
+    <section id="project-intro">
+      <h2>Project Introduction</h2>
+      <p>
+        Student dropout and academic success are major concerns for higher education institutions because 
+        they directly affect graduation rates, campus resources, and student well-being. Understanding why 
+        some students persist while others leave early is important when designing effective retention strategies.
+      </p>
+      <p>
+        The Predict Students Dropout and Academic Success dataset from the UCI Machine Learning Repository 
+        gives us a detailed look at many of the factors that shape student outcomes, including financial 
+        conditions, prior academic preparation, and early academic performance. With information collected 
+        at the time of enrollment and during the first two semesters, the dataset provides a useful starting 
+        point for exploring how different aspects of a student's background relate to whether they ultimately 
+        graduate, remain enrolled, or drop out.
+      </p>
+      <p>
+        For this project, our group focused on the variables that fall into two categories with strong ties 
+        to student outcomes: financial stability and early academic performance. Instead of analyzing all 36 
+        attributes individually, we selected and/or grouped the variables most relevant to these areas and 
+        used visualizations to highlight the patterns that distinguish graduates, dropouts, and currently 
+        enrolled students. Our goal was to describe these patterns and to identify moments 
+        where early intervention might make a measurable difference.
+      </p>
+      <p>
+        This topic is important because it shows how data science can support educational decision-making. 
+        By turning institutional data into clearer insights, projects like this can help universities better 
+        understand student needs and design programs that promote long-term academic success.
+      </p>
+    </section>
+
+    <section id="data-intro">
+      <h2>About the Dataset</h2>
+      <p>
+        The dataset for this project is called "Predict Students Dropout and Academic Success," and it comes 
+        from the UCI Machine Learning Repository. It was created in 2021 using records from a Portuguese 
+        higher education institution as part of a national effort to better understand student persistence 
+        and reduce dropout rates. The data brings together information from several internal systems and 
+        includes records for 4,424 undergraduate students across programs such as agronomy, nursing, 
+        journalism, education, management, social services, and various technology fields.
+      </p>
+      <p>
+        There are 36 attributes in total. These include details available when a student first enrolls, 
+        such as family background, financial circumstances, demographic information, and previous academic 
+        experience. The dataset also contains performance information from the first two semesters. The 
+        variables are a mix of numerical and categorical fields arranged in a standard table format.
+      </p>
+      <p>
+        Students in the dataset fall into one of three outcomes: Dropout, Enrolled, or Graduate. These 
+        categories are not evenly distributed. Graduates make up the largest group, followed by Dropouts, 
+        while Enrolled students represent the smallest share. Because the groups differ so much in size, 
+        it is important to focus on percentages rather than raw counts when comparing patterns across 
+        different student populations.
+      </p>
+      <p>
+        This dataset allows us to look at multiple factors that shape a 
+        student's academic path. It helps us explore how financial stability, early academic performance, 
+        and prior preparation relate to whether a student ultimately graduates or leaves the institution.
+      </p>
+    </section>
+
+    <section id="references">
+      <h2>Reference Papers</h2>
+      <ul class="references-list">
+        <li>
+          Student dropout prediction through machine learning optimization:
+          Insights from moogle log data.
+          <a href="https://www.nature.com/articles/s41598-025-93918-1?utm_.com" target="_blank" rel="noopener noreferrer">
+            Link to article
+          </a>
+        </li>
+        <li>
+          Early Prediction of Student Dropout in Higher Education using Machine Learning Models.
+          <a href="https://educationaldatamining.org/edm2024/proceedings/2024.EDM-short-papers.32/index.html?utm_.com"
+             target="_blank" rel="noopener noreferrer">
+            Link to article
+          </a>
+        </li>
+      </ul>
+    </section>
+  </div>
+</body>
+</html>

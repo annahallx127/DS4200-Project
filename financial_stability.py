@@ -26,86 +26,99 @@ for factor in financial_factors:
                     'Percentage': percentage
                 })
 
-# Create DataFrame from the prepared data
 plot_df = pd.DataFrame(plot_data)
 
-# Define color scheme
+# Color scheme
 color_scale = alt.Scale(
     domain=['Graduate', 'Enrolled', 'Dropout'],
-    range=['#4CAF50', '#2196F3', '#F44336']
+    range=["#2ca02c","#ff7f0e", "#d62728"]
 )
 
-# Create the chart
-chart = alt.Chart(plot_df).mark_bar().encode(
-    x=alt.X('Status:N', 
-            title='Status (Yes / No)',
-            axis=alt.Axis(
-                labelFontSize=11,
-                titleFontSize=11,
-                labelFont='Georgia, Times New Roman, serif',
-                titleFont='Georgia, Times New Roman, serif'
-            )),
-    y=alt.Y('Percentage:Q', 
-            title='Percentage of Students (%)',
-            scale=alt.Scale(domain=[0, 100]),
-            axis=alt.Axis(
-                labelFontSize=10,
-                titleFontSize=11,
-                labelFont='Georgia, Times New Roman, serif',
-                titleFont='Georgia, Times New Roman, serif',
-                grid=True,
-                gridOpacity=0.3,
-                gridDash=[3, 3]
-            )),
-    color=alt.Color('Outcome:N', 
-                    scale=color_scale,
-                    legend=alt.Legend(
-                        title='Outcome',
-                        titleFontSize=12,
-                        labelFontSize=11,
-                        titleFont='Georgia, Times New Roman, serif',
-                        labelFont='Georgia, Times New Roman, serif',
-                        orient='right',
-                        fillColor='white',
-                        strokeColor='gray',
-                        padding=10,
-                        cornerRadius=5
-                    )),
-    order=alt.Order('Outcome:N', sort='ascending'),
-    tooltip=[
-        alt.Tooltip('Factor:N', title='Financial Factor'),
-        alt.Tooltip('Status:N', title='Status'),
-        alt.Tooltip('Outcome:N', title='Outcome'),
-        alt.Tooltip('Percentage:Q', title='Percentage', format='.2f')
-    ]
-).properties(
-    width=180,
-    height=350
-).facet(
-    column=alt.Column('Factor:N',
-                     title=None,
-                     header=alt.Header(
-                         labelFontSize=13,
-                         labelFont='Georgia, Times New Roman, serif',
-                         labelFontWeight='bold',
-                         labelPadding=15
-                     ))
-).configure_view(
-    strokeWidth=0,
-    fill='white'
-).configure(
-    background='white'
-).configure_axis(
-    domainColor='#333',
-    tickColor='#333'
+# Base chart 
+base = (
+    alt.Chart(plot_df)
+    .mark_bar()
+    .encode(
+        x=alt.X('Status:N',
+                title='Status (Yes / No)',
+                axis=alt.Axis(
+                    labelFont='Georgia, Times New Roman, serif',
+                    titleFont='Georgia, Times New Roman, serif',
+                    labelFontSize=11,
+                    titleFontSize=11
+                )),
+        y=alt.Y('Percentage:Q',
+                title='Percentage of Students (%)',
+                scale=alt.Scale(domain=[0, 100]),
+                axis=alt.Axis(
+                    labelFont='Georgia, Times New Roman, serif',
+                    titleFont='Georgia, Times New Roman, serif',
+                    labelFontSize=10,
+                    titleFontSize=11,
+                    grid=True,
+                    gridOpacity=0.3,
+                    gridDash=[3, 3]
+                )),
+        color=alt.Color('Outcome:N',
+                        scale=color_scale,
+                        legend=alt.Legend(
+                            title='Outcome',
+                            titleFont='Georgia, Times New Roman, serif',
+                            labelFont='Georgia, Times New Roman, serif',
+                            titleFontSize=12,
+                            labelFontSize=11,
+                            orient='right',
+                            fillColor='white',
+                            strokeColor='gray',
+                            padding=10,
+                            cornerRadius=5
+                        )),
+        tooltip=[
+            alt.Tooltip('Factor:N', title='Financial Factor'),
+            alt.Tooltip('Status:N', title='Status'),
+            alt.Tooltip('Outcome:N', title='Outcome'),
+            alt.Tooltip('Percentage:Q', title='Percentage', format='.2f')
+        ]
+    )
 )
 
-# Save the chart
-chart.save('viz2_altair.html')
+# Faceted layout
+facet_chart = (
+    base.properties(width=180, height=350)
+    .facet(
+        column=alt.Column(
+            'Factor:N',
+            title=None,
+            header=alt.Header(
+                labelFont='Georgia, Times New Roman, serif',
+                labelFontSize=13,
+                labelFontWeight='bold',
+                labelPadding=15
+            )
+        )
+    )
+)
+
+# Add title
+final_chart = (
+    facet_chart
+    .properties(
+        title=alt.TitleParams(
+            "Percentage of Student Outcomes by Financial Stability Factors",
+            font="Georgia, Times New Roman, serif",
+            fontSize=18,
+            anchor="start",      
+            color="#333333"
+        )
+    )
+    .configure_view(
+        strokeWidth=0,
+        fill='white'
+    )
+    .configure(background='white')
+)
+
+# Save
+final_chart.save("viz2_altair.html")
 
 print("Chart saved successfully!")
-print(f"HTML: viz2_altair.html")
-print("\nData Summary:")
-print(f"Total students: {len(df)}")
-print(f"\nOutcome distribution:")
-print(df['Target'].value_counts())

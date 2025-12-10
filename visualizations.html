@@ -19,6 +19,7 @@
     <ul>
       <li><a href="home.html">Home</a></li>
       <li><a href="visualizations.html" class="active">Visualizations</a></li>
+      <li><a href="findings.html">Key Findings</a></li>
     </ul>
   </nav>
 
@@ -29,10 +30,9 @@
         <li><a href="#viz1">Financial Stability and Student Outcome</a></li>
         <li><a href="#viz2_altair">Financial Stability Factors</a></li>
         <li><a href="#viz4">Socioeconomic Status & Dropout Distribution</a></li>
-        <li><a href="#donut_visualization">Student Outcomes by Number of Classes (Units) Enrolled</a></li>
+        <li><a href="#donut_visualization">Student Outcomes by Number of Classes Enrolled</a></li>
         <li><a href="#viz5">Academic Performance Risk Map</a></li>
         <li><a href="#viz6">Student Outcomes Based on First Semester Performance</a></li>
-        <li><a href="#findings">Key Findings</a></li>
       </ul>
     </nav>
 
@@ -63,7 +63,7 @@
       </section>
 
       <section id="viz2_altair">
-        <h2>Financial Stability Factors</h2>
+        <h2>Percentage of Student Outcomes by Financial Stability Factors</h2>
         <div class="viz-container">
           <iframe src="viz2_altair.html"
                   class="viz-frame"
@@ -130,30 +130,37 @@
       </section>
 
       <section id="donut_visualization">
-        <h2>Student Outcomes by Number of Classes (Units) Enrolled</h2>
-        <div class="viz-container">
-          <iframe src="donut_visualization.html"
-                  width="100%"
-                  height="1100"
-                  frameborder="0"
-                  style="border: none;"></iframe>
-          <div class="caption">
-            <h4>Analysis</h4>
-            <p>
-              These four charts show how student outcomes change across different levels of academic performance in the first semester. 
-              The first chart represents all students in the dataset and gives a baseline distribution, with graduates making up the largest group, 
-              followed by dropouts and enrolled students. When the students are separated by the number of units they successfully completed, 
-              the outcome patterns shift noticeably. High performers who complete 5-6 units have a much larger share of graduates and a smaller 
-              share of dropouts compared to the overall population. Medium performers, who complete 3-4 units, show a more balanced mix of outcomes,
-              with graduates, dropouts, and enrolled students all making up significant portions. The at-risk group, which consists of students who
-              completed 0-2 units, looks very different from the high-performing group. In this subset, dropouts account for most of the outcomes, 
-              while graduates make up only a small minority. The four charts together highlight how outcomes vary across performance levels, helping
-              to show where students begin to diverge in their academic paths.
-            </p>
-          </div>
-        </div>
-      </section>
+  <h2>Student Outcomes by Number of Classes Enrolled</h2>
 
+  <div class="viz-container">
+
+    <div class="scaled-iframe-wrapper">
+      <iframe
+        src="donut_visualization.html"
+        class="scaled-iframe"></iframe>
+    </div>
+
+    <p class="interaction-note">
+      Use the radio buttons above the chart to switch between performance groups.
+      You can view all students, high performers, medium performers, or at-risk students
+      and compare how the outcome distribution changes for each group.
+    </p>
+
+    <div class="caption">
+      <h4>Analysis</h4>
+      <p>
+        These four charts show how student enrollment levels relate to academic outcomes.
+        The “All Students” view provides a baseline, where graduates make up the majority,
+        followed by dropouts and enrolled students. When broken down by the number of classes
+        passed in the first semester, the differences become clearer: high performers show
+        a strong concentration of graduates, medium performers display more mixed outcomes,
+        and at-risk students see much higher dropout proportions. This interactive chart
+        highlights how early academic performance aligns with long-term trajectories.
+      </p>
+    </div>
+
+  </div>
+</section>
       <section id="viz5">
         <h2>Academic Performance Risk Map</h2>
         <div class="viz-container">
@@ -211,111 +218,5 @@
           </div>
         </div>
       </section>
-
-      <section id="findings">
-        <h2>Key Findings & Summary</h2>
-        
-        <div class="key-insight">
-          <h4>Primary Insight</h4>
-          <p>
-            The visualizations reveal consistent patterns linking financial circumstances,
-            early academic performance, and family background with the three student outcomes
-            in this dataset. While we cannot determine the exact reasons behind each student's outcome, the patterns highlight 
-            potential factors that appear closely associated with whether students graduate, stay enrolled, or drop out.
-            These trends especially point to groups of students whose academic paths diverge early, often alongside financial 
-            strain or first-semester academic challenges.
-          </p>
-        </div>
-
-        <h3>Major Findings</h3>
-        <ul class="findings-list">
-          <li>
-            <strong>Finding 1:</strong> Students with debt or unpaid tuition appear more 
-            frequently among dropouts, while financially stable students have a higher 
-            proportion of graduates.
-            <br><em>
-              In the sunburst and bar charts, financial strain aligns with a higher share 
-              of dropout outcomes, suggesting money-related challenges may influence how 
-              students progress.
-            </em>
-          </li>
-
-          <li>
-            <strong>Finding 2:</strong> Scholarship holders tend to have stronger outcomes.
-            <br><em>
-              Even within the groups experiencing debt or unpaid tuition, students with 
-              scholarships show a larger percentage of graduates compared to those without 
-              scholarship support.
-            </em>
-          </li>
-
-          <li>
-            <strong>Finding 3:</strong> First-semester academic performance aligns closely 
-            with final outcomes.
-            <br><em>
-              Students who complete and pass more courses in their first semester cluster 
-              in the graduate group, while dropouts are concentrated among students with 
-              fewer evaluations and approvals.
-            </em>
-          </li>
-
-          <li>
-            <strong>Finding 4:</strong> Students whose parents have lower educational 
-            qualifications appear more frequently in the dropout group.
-            <br><em>
-              The SES visualization shows higher dropout density among students whose 
-              parents have limited schooling, indicating that background factors may shape 
-              early academic experiences.
-            </em>
-          </li>
-
-          <li>
-            <strong>Finding 5:</strong> No single feature explains student outcomes alone.
-            <br><em>
-              Financial factors, early performance, and socioeconomic background each show 
-              patterns across different visualizations, suggesting that multiple 
-              conditions interact throughout a students academic path.
-            </em>
-          </li>
-        </ul>
-
-        <h3>Implications for Higher Education</h3>
-        <p>
-          These patterns suggest that financial, academic, and background-related factors
-          all matter when thinking about student persistence. For universities, this means
-          that identifying students who might need extra support requires looking beyond
-          just grades or financial records on their own. Paying closer attention to these
-          patterns earlier, especially during the transition into the first semester, may help
-          institutions offer more timely support through advising, academic resources, or
-          financial guidance.
-        </p>
-
-        <h3>Recommendations</h3>
-        <ul class="findings-list">
-          <li>
-            Expand financial guidance and emergency aid options for students who begin 
-            their program with debt or unpaid tuition.
-          </li>
-          <li>
-            Strengthen early-semester academic support through tutoring, study workshops, 
-            or structured advising for students struggling in their first term.
-          </li>
-          <li>
-            Create targeted mentorship or transition programs for students from families 
-            with lower educational backgrounds to support their adjustment to university life.
-          </li>
-        </ul>
-
-        <h3>Limitations & Future Work</h3>
-        <p>
-          This dataset comes from a single institution and does not capture factors like 
-          mental health, work responsibilities, or personal circumstances that can also 
-          influence academic outcomes. Future work could include additional qualitative or 
-          behavioral information, or expand the analysis to multiple universities to see 
-          whether these patterns remain consistent in broader contexts.
-        </p>
-      </section>
-    </main>
-  </div>
 </body>
 </html>

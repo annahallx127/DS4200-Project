@@ -2,158 +2,161 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Student Outcomes - D3 Donut Charts</title>
+<title>Interactive Donut Chart – Student Outcomes</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.8.5/d3.min.js"></script>
+
 <style>
-body {
-    font-family: sans-serif;
-    margin: 40px;
-    background: #fff;
-}
-
-h1 {
-    font-size: 24px;
-    font-weight: 600;
-    color: #333;
-    text-align: center;
-    margin-bottom: 30px;
-}
-
-/* 2x2 Grid Layout */
-.grid-container {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    grid-template-rows: 1fr 1fr;
-    gap: 40px;
-    max-width: 1400px;
-    margin: 0 auto;
-    padding: 20px;
-}
-
-.chart-container {
-    text-align: center;
-    padding: 20px;
-    border: 1px solid #e0e0e0;
-    border-radius: 8px;
-    background: #fafafa;
-}
-
-h2 {
-    font-size: 16px;
-    font-weight: 600;
-    color: #333;
-    margin-bottom: 15px;
-    margin-top: 0;
-}
-
-svg {
-    display: block;
-    margin: 0 auto;
-}
-
-/* Stack on mobile */
-@media (max-width: 768px) {
-    .grid-container {
-        grid-template-columns: 1fr;
-        grid-template-rows: auto;
+    body {
+        font-family: Georgia, "Times New Roman", serif;
+        margin: 40px;
+        background-color: #fff;
+        text-align: center;
     }
-}
+
+    h1 {
+        font-size: 24px;
+        margin-bottom: 10px;
+    }
+
+    .controls {
+        margin-bottom: 25px;
+        font-size: 16px;
+    }
+
+    .controls label {
+        margin-right: 15px;
+        cursor: pointer;
+    }
+
+    #chart {
+        margin: 0 auto;
+        max-width: 450px;
+    }
+
+    /* Tooltip */
+    .tooltip {
+        position: absolute;
+        background: white;
+        border: 1px solid #ccc;
+        padding: 8px 10px;
+        border-radius: 6px;
+        pointer-events: none;
+        font-size: 14px;
+        box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+        opacity: 0;
+        transition: opacity 0.15s;
+    }
 </style>
 </head>
 <body>
 
-<h1>Student Outcomes by Academic Performance</h1>
+<p>Select a performance group to explore the outcome distribution.</p>
 
-<!-- 2x2 Grid -->
-<div class="grid-container">
-    <div class="chart-container">
-        <h2>All Students (n=4,424)</h2>
-        <div id="chart-all"></div>
-    </div>
-
-    <div class="chart-container">
-        <h2>High Performers - 5-6 Units Approved (n=2,717)</h2>
-        <div id="chart-high"></div>
-    </div>
-
-    <div class="chart-container">
-        <h2>Medium Performers - 3-4 Units Approved (n=702)</h2>
-        <div id="chart-medium"></div>
-    </div>
-
-    <div class="chart-container">
-        <h2>At Risk Students - 0-2 Units Approved (n=1,005)</h2>
-        <div id="chart-low"></div>
-    </div>
+<div class="controls">
+    <label><input type="radio" name="group" value="all" checked> All Students</label>
+    <label><input type="radio" name="group" value="high"> High Performers (5–6 classes passed)</label>
+    <label><input type="radio" name="group" value="medium"> Medium Performers (3–4 classes passed)</label>
+    <label><input type="radio" name="group" value="low"> At-Risk (0–2 classes passed)</label>
 </div>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/5.16.0/d3.min.js"></script>
-<script>
-// Load data from JSON file
-d3.json("data/donut_chart_data.json").then(function(dataByPerformance) {
-    
-    // Create chart for each performance level
-    createDonutChart(dataByPerformance.all.outcomes, "chart-all");
-    createDonutChart(dataByPerformance.high.outcomes, "chart-high");
-    createDonutChart(dataByPerformance.medium.outcomes, "chart-medium");
-    createDonutChart(dataByPerformance.low.outcomes, "chart-low");
-    
-}).catch(function(error) {
-    console.error("Error loading data:", error);
-    document.body.innerHTML = '<h2 style="color: red;">Error: Could not load data. Make sure you are using Live Server!</h2>';
-});
+<div id="chart"></div>
+<div class="tooltip" id="tooltip"></div>
 
-function createDonutChart(data, containerId) {
-    const width = 400;
-    const height = Math.min(width, 400);
-    const radius = Math.min(width, height) / 2;
-    
+<script>
+d3.json("data/donut_chart_data.json").then(function(data) {
+
+    const width = 420,
+          height = 420,
+          radius = 180;
+
+    const tooltip = d3.select("#tooltip");
+
+    const color = d3.scaleOrdinal()
+        .domain(["Graduate", "Dropout", "Enrolled"])
+        .range(["#2ca02c", "#d62728", "#ff7f0e"]);
+
     const arc = d3.arc()
-        .innerRadius(radius * 0.67)
-        .outerRadius(radius - 1);
-    
+        .innerRadius(radius * 0.6)
+        .outerRadius(radius);
+
     const pie = d3.pie()
-        .padAngle(1 / radius)
         .sort(null)
         .value(d => d.value);
-    
-    const color = d3.scaleOrdinal()
-        .domain(data.map(d => d.outcome))
-        .range(data.map(d => d.color));
-    
-    const svg = d3.select(`#${containerId}`)
+
+    const svg = d3.select("#chart")
         .append("svg")
         .attr("width", width)
         .attr("height", height)
-        .attr("viewBox", [-width / 2, -height / 2, width, height])
-        .attr("style", "max-width: 100%; height: auto;");
-    
-    svg.append("g")
-        .selectAll()
-        .data(pie(data))
-        .join("path")
-        .attr("fill", d => color(d.data.outcome))
-        .attr("d", arc)
-        .append("title")
-        .text(d => `${d.data.outcome}: ${d.data.value.toLocaleString()}`);
-    
-    svg.append("g")
-        .attr("font-family", "sans-serif")
-        .attr("font-size", 12)
-        .attr("text-anchor", "middle")
-        .selectAll()
-        .data(pie(data))
-        .join("text")
-        .attr("transform", d => `translate(${arc.centroid(d)})`)
-        .call(text => text.append("tspan")
-            .attr("y", "-0.4em")
-            .attr("font-weight", "bold")
-            .text(d => d.data.outcome))
-        .call(text => text.filter(d => (d.endAngle - d.startAngle) > 0.25).append("tspan")
-            .attr("x", 0)
-            .attr("y", "0.7em")
-            .attr("fill-opacity", 0.7)
-            .text(d => d.data.value.toLocaleString("en-US")));
-}
+        .append("g")
+        .attr("transform", `translate(${width/2}, ${height/2})`);
+
+    let arcsGroup = svg.append("g");
+
+    function updateChart(groupName) {
+        const dataset = data[groupName].outcomes;
+        const total = data[groupName].total;
+
+        const arcs = arcsGroup.selectAll("path")
+            .data(pie(dataset));
+
+        arcs.join(
+            enter => enter.append("path")
+                .attr("fill", d => color(d.data.outcome))
+                .attr("d", arc)
+                .each(function(d) { this._current = d; })
+                .on("mousemove", (event, d) => {
+                    const percent = ((d.data.value / total) * 100).toFixed(1);
+                    tooltip
+                        .style("opacity", 1)
+                        .html(`
+                            <strong>${d.data.outcome}</strong><br>
+                            Count: ${d.data.value.toLocaleString()}<br>
+                            ${percent}% of group
+                        `)
+                        .style("left", (event.pageX + 10) + "px")
+                        .style("top", (event.pageY - 20) + "px");
+                })
+                .on("mouseout", () => {
+                    tooltip.style("opacity", 0);
+                }),
+
+            update => update.transition().duration(600)
+                .attrTween("d", function(d) {
+                    const i = d3.interpolate(this._current, d);
+                    this._current = i(1);
+                    return t => arc(i(t));
+                }),
+
+            exit => exit.remove()
+        );
+
+        const labels = svg.selectAll("text.label")
+            .data(pie(dataset));
+
+        labels.join(
+            enter => enter.append("text")
+                .attr("class", "label")
+                .attr("text-anchor", "middle")
+                .attr("font-size", "13px")
+                .attr("transform", d => `translate(${arc.centroid(d)})`)
+                .text(d => d.data.outcome),
+
+            update => update.transition().duration(600)
+                .attr("transform", d => `translate(${arc.centroid(d)})`)
+                .text(d => d.data.outcome),
+
+            exit => exit.remove()
+        );
+    }
+
+    updateChart("all");
+
+    d3.selectAll("input[name='group']").on("change", function() {
+        updateChart(this.value);
+    });
+
+});
 </script>
+
 </body>
+</html>

@@ -1,5 +1,5 @@
 body {
-  font-family: Arial, sans-serif;
+  font-family: Georgia, "Times New Roman", serif;
   background-color: #f9f9f9;
   color: #333;
 }
@@ -16,7 +16,7 @@ h2 {
   color: white;
   padding: 8px 12px;
   border-radius: 6px;
-  font-family: Arial, sans-serif;
+  font-family: Georgia, "Times New Roman", serif;
   font-size: 14px;
   transition: opacity 0.2s;
 }
@@ -27,6 +27,6 @@ path {
 }
 
 .legend text {
-  font-family: Arial, sans-serif;
+  font-family: Georgia, "Times New Roman", serif;
   font-size: 14px;
 }
